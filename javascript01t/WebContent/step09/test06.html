@@ -8,24 +8,31 @@
 <button id='btn1' type='button'>요청</button><br>
 <input id='name' type='text'><br>
 <input id='age' type='text'><br>
-
+<button id='btn2' type='button'>테스트</button><br>
+<!--  
 <script type="text/javascript" src='bitquery.js'></script>
+-->
+<script type="text/javascript" src='jquery-1.11.3.js'></script>
 <script type="text/javascript">
 /* 비동기 요청
  * - 웹 브라우저에서 요청을 별도의 스레드로 처리하는 것.
  */
 
-document.getElementById('btn1').onclick = function(event) {
+$('#btn2').click(function(){
+	alert($('#btn2').val());
+}); 
+ 
+$('#btn1').click(function(event) {
 	$.ajax('test06', {
 		method: 'POST',
-		data: {name:'홍길동',age:20},
+		data: {name:'홍길동남의꺼',age:20},
 		dataType: 'json',
 		success: function(jsonObj) {
-			document.getElementById('name').value = jsonObj.name;
-			document.getElementById('age').value = jsonObj.age;
+			$('#name').val(jsonObj.name);
+			$('#age').val(jsonObj.age);
 		}
 	});
-};
+});
  
 </script>
 </body>

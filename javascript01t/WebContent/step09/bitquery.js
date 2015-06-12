@@ -78,6 +78,21 @@ function bit(selector) {
 		return this;
 	}
 	
+	list.val = function(value) {
+		if (arguments.length == 0) {
+			if (list.length > 0) {
+				return list[0].value;
+			} else {
+				return undefined;
+			}
+		} else {
+			for (var i = 0; i < list.length; i++) {
+				list[i].value = value;
+			}
+			return this;
+		}
+	}
+	
 	return list;
 }
 
