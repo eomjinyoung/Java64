@@ -6,7 +6,8 @@
 </head>
 <body>
 <button id='btn1' type='button'>요청</button><br>
-<textarea id='message' cols='50' rows='10'></textarea>
+<input id='name' type='text'><br>
+<input id='age' type='text'><br>
 
 <script type="text/javascript" src='bitquery.js'></script>
 <script type="text/javascript">
@@ -15,19 +16,15 @@
  */
 
 document.getElementById('btn1').onclick = function(event) {
-	// 5. POST 요청 보내기 - 한글 데이터 보내기
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4) {
-			document.getElementById('message').value = xhr.responseText;
+	$.ajax('test06', {
+		method: 'POST',
+		data: {name:'홍길동',age:20},
+		dataType: 'json',
+		success: function(jsonObj) {
+			document.getElementById('name').value = jsonObj.name;
+			document.getElementById('age').value = jsonObj.age;
 		}
-	};
-	xhr.open('POST', 'test05', true); 
-	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	
-	// 멀티바이트 문자 데이터를 보낼 때는 반드시 URLEncoding 하여 보낸다.
-	var data = "name=" + encodeURIComponent("홍길동") + "&age=20";
-	xhr.send(data); 
+	});
 };
  
 </script>

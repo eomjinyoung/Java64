@@ -82,6 +82,47 @@ function bit(selector) {
 }
 
 
+bit.ajax = function(url, settings) {
+	var xhr;
+	
+	if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+	  xhr = new XMLHttpRequest();
+	  
+	} else {// code for IE6, IE5
+	  xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			if (settings.success) {
+				if (settings.dataType == "json") {
+					settings.success(JSON.parse(xhr.responseText));
+				} else {
+					settings.success(xhr.responseText);
+				}
+			}
+		}
+	};
+	xhr.open(settings.method, url, true); 
+	
+	if (settings.method == "GET") {
+		xhr.send();
+		
+	} else { //POST 라면,
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	
+		var queryString = "";
+		for (var propName in settings.data) {
+			if (queryString.length > 0) {
+				queryString += "&";
+			}
+			queryString += propName + "=" + encodeURIComponent(settings.data[propName]) 
+		}
+		console.log("서버에 보내는 문자열:" + queryString);
+		xhr.send(queryString);
+	}
+};
+
 var $ = bit;
 
 
