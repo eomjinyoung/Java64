@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button id='btn1' type='button'>요청</button><br>
+<textarea id='message' cols='50' rows='10'></textarea>
+
+<script type="text/javascript">
+/* 비동기 요청
+ * - 웹 브라우저에서 요청을 별도의 스레드로 처리하는 것.
+ */
+
+document.getElementById('btn1').onclick = function(event) {
+	// 4. POST 요청 보내기 - 비동기 요청
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			document.getElementById('message').value = xhr.responseText;
+		}
+	};
+
+	xhr.open('POST', 'test04', true); // 비동기 요청 지정
+	
+	// 요청 헤더는 open() 호출 후에 설정해야 한다.
+	// POST 요청은, 요청 헤더에 Content-Type 헤더를 반드시 추가해야 한다.
+	// - 주의! AJAX는 멀티파트 형식으로 전송할 수 없다. 파일 업로드 지원 불가! 
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	
+	// POST 요청에서 데이터를 보낼 때는 send() 파라미터로 전달한다.
+	xhr.send("name=hong&age=20"); 
+};
+ 
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

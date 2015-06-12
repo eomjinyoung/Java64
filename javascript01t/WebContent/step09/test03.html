@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button id='btn1' type='button'>요청</button><br>
+<textarea id='message' cols='50' rows='10'></textarea>
+
+<script type="text/javascript">
+/* 비동기 요청
+ * - 웹 브라우저에서 요청을 별도의 스레드로 처리하는 것.
+ */
+
+document.getElementById('btn1').onclick = function(event) {
+	// 3. GET 요청 보내기 - 비동기 요청
+	var xhr = new XMLHttpRequest();
+	
+	// 다음 함수는 요청 상태가 바뀔 때 마다 호출된다.
+	xhr.onreadystatechange = function() {
+		console.log("===========>  ", xhr.readyState);
+		/* readyState
+		 * 1 : 서버에 연결되었을 때. open() 호출 후 
+		 * 2 : 서버에 요청을 보냈을 때. send() 호출 후 
+		 * 3 : 서버가 요청을 처리 중일 때
+		 * 4 : 서버로부터 응답을 받았을 때
+		 */
+		if (xhr.readyState == 4) {
+			document.getElementById('message').value = xhr.responseText;
+		}
+	};
+	console.log("11111111111111111111");
+	
+	xhr.open('GET', 'test01.jsp', true); // 비동기 요청 지정
+	console.log("2222222222222222222222");
+	
+	xhr.send(); 
+	console.log("3333333333333333333333");
+};
+ 
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
